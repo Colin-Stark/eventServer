@@ -1,0 +1,31 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch (or any other branch you prefer)
+  pull_request:
+    branches:
+      - main  # Trigger on pull request to the main branch
+
+jobs:
+  Run-npm-on-Ubuntu:
+    name: Run npm on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+          # Set environment variables
+      - name: Set environment variables
+        run: echo "PORT=${{ secrets.PORT }}" >> $GITHUB_ENV
+
+          # install packages
+      - run: npm install
+
+          # run tests
+      - run: npm test
+
+      

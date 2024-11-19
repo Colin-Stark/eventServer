@@ -1,0 +1,38 @@
+{
+  "name": "senectask",
+  "version": "0.0.1",
+  "description": "A node server for my app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js",
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Colin-Stark/taskserver.git"
+  },
+  "keywords": [
+    "node",
+    "javascript"
+  ],
+  "author": "COLLINS OLOKPEDJE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Colin-Stark/taskserver/issues"
+  },
+  "homepage": "https://github.com/Colin-Stark/taskserver#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jest": "^29.7.0",
+    "mongoose": "^8.8.1"
+  },
+  "jest": {
+    "setupFiles": [
+      "dotenv/config"
+    ]
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
+  }
+}
