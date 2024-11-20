@@ -1,4 +1,5 @@
 const express = require('express');
+const emailCheck = require('../helper/emailCheck');
 
 const router = express.Router();
 

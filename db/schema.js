@@ -38,10 +38,12 @@ let userSchema = new schema({
     firstname: {
         type: String,
         required: false,
+        default: null,
     },
     lastname: {
         type: String,
         required: false,
+        default: null,
     },
     email: {
         type: String,
@@ -54,6 +56,7 @@ let userSchema = new schema({
     phoneNumber: {
         type: String,
         required: false,
+        default: null,
     },
     isVerified: {
         type: Boolean,
