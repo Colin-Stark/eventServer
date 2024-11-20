@@ -12,6 +12,8 @@ jobs:
   Run-npm-on-Ubuntu:
     name: Run npm on Ubuntu
     runs-on: ubuntu-latest
+    env:
+      PORT: ${{ secrets.PORT }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,8 +22,6 @@ jobs:
 
           # Set environment variables
       - name: Set environment variables
-        env:
-          PORT: ${{ secrets.PORT }}
         # run: echo "PORT=${{ secrets.PORT }}" >> $GITHUB_ENV
 
           # install packages
