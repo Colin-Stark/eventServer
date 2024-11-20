@@ -44,12 +44,14 @@ function emailCheck(email) {
     // return false;
 
     const emailArr = email.split('@'); // split email based on '@'
+    const userNameArr = emailArr[0].split('.'); // split email based on '.'
+    const localPartPattern = /^[a-zA-Z0-9]+$/;
 
     // email array must contain 2 elements <user, domain>
     if(emailArr.length === 2) {
 
         // if domian is .myseneca.ca. and user has no '.'
-        if ((emailArr[1] === 'myseneca.ca') && !emailArr[0].includes('.')) {
+        if ((emailArr[1] === 'myseneca.ca') && localPartPattern.test(emailArr[0])) {
 
             return true;
         }
@@ -57,11 +59,9 @@ function emailCheck(email) {
         // if domian is 'senecapolytechnic.ca'
         if (emailArr[1] === 'senecapolytechnic.ca') {
 
-            const userNameArr = emailArr[0].split('.'); // split email based on '.'
-
             //user array must contain 2 elements <userFirstname, userlastname>, also check both elements are not empty
-            if (userNameArr.length === 2 && ((userNameArr[0].length > 0) || (userNameArr[1].length > 0))) { //
-
+            if ((userNameArr.length === 2) && (localPartPattern.test(userNameArr[0]) && localPartPattern.test(userNameArr[1]))) { //
+                
                 return true;
             }
         }
