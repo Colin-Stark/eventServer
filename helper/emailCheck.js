@@ -10,37 +10,63 @@
  * @returns {boolean} - Returns true if the email meets all the specified conditions, otherwise returns false.
  */
 function emailCheck(email) {
-    // Check if the email ends with @myseneca.ca
-    if (email.endsWith('@myseneca.ca')) {
-        // Ensure the local part is alphanumeric (i.e., no special characters other than the @)
-        const localPart = email.split('@')[0]; // Get the part before the '@'
-        const localPartPattern = /^[a-zA-Z0-9]+$/;
+    // // Check if the email ends with @myseneca.ca
+    // if (email.endsWith('@myseneca.ca')) {
+    //     // Ensure the local part is alphanumeric (i.e., no special characters other than the @)
+    //     const localPart = email.split('@')[0]; // Get the part before the '@'
+    //     const localPartPattern = /^[a-zA-Z0-9]+$/;
 
-        if (!localPartPattern.test(localPart)) {
-            return false; // If the local part contains invalid characters, return false
+    //     if (!localPartPattern.test(localPart)) {
+    //         return false; // If the local part contains invalid characters, return false
+    //     }
+
+    //     return true; // If email ends with @myseneca.ca and local part is valid, return true
+    // }
+
+    // // Check if the email ends with @senecapolytechnic.ca
+    // if (email.endsWith('@senecapolytechnic.ca')) {
+    //     // Ensure there is a dot in the local part before the @
+    //     const localPart = email.split('@')[0]; // Get the part before the '@'
+
+    //     if (!localPart.includes('.')) {
+    //         return false; // If no dot in the local part, return false
+    //     }
+
+    //     const localPartPattern = /^[a-zA-Z0-9.]+$/; // Alphanumeric and dots are allowed in the local part
+    //     if (!localPartPattern.test(localPart)) {
+    //         return false; // If the local part contains invalid characters, return false
+    //     }
+
+    //     return true; // If email ends with @senecapolytechnic.ca and local part is valid, return true
+    // }
+
+    // // If email doesn't match any of the above cases, return false
+    // return false;
+
+    const emailArr = email.split('@'); // split email based on '@'
+
+    // email array must contain 2 elements <user, domain>
+    if(emailArr.length === 2) {
+
+        // if domian is .myseneca.ca. and user has no '.'
+        if ((emailArr[1] === 'myseneca.ca') && !emailArr[0].includes('.')) {
+
+            return true;
         }
 
-        return true; // If email ends with @myseneca.ca and local part is valid, return true
+        // if domian is 'senecapolytechnic.ca'
+        if (emailArr[1] === 'senecapolytechnic.ca') {
+
+            const userNameArr = emailArr[0].split('.'); // split email based on '.'
+
+            //user array must contain 2 elements <userFirstname, userlastname>, also check both elements are not empty
+            if (userNameArr.length === 2 && ((userNameArr[0].length > 0) || (userNameArr[1].length > 0))) { //
+
+                return true;
+            }
+        }
     }
 
-    // Check if the email ends with @senecapolytechnic.ca
-    if (email.endsWith('@senecapolytechnic.ca')) {
-        // Ensure there is a dot in the local part before the @
-        const localPart = email.split('@')[0]; // Get the part before the '@'
-
-        if (!localPart.includes('.')) {
-            return false; // If no dot in the local part, return false
-        }
-
-        const localPartPattern = /^[a-zA-Z0-9.]+$/; // Alphanumeric and dots are allowed in the local part
-        if (!localPartPattern.test(localPart)) {
-            return false; // If the local part contains invalid characters, return false
-        }
-
-        return true; // If email ends with @senecapolytechnic.ca and local part is valid, return true
-    }
-
-    // If email doesn't match any of the above cases, return false
     return false;
 }
 

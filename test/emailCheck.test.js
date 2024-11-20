@@ -43,8 +43,8 @@ describe('emailCheck function Test', () => {
 
     // Negative Test: Test for emails ending with '@senecapolytechnic.ca' but with multiple dots in the local part
     test('should return false for emails ending with @senecapolytechnic.ca and multiple dots in the local part', () => {
-        expect(emailCheck('first..last@senecapolytechnic.ca')).toBe(true);
-        expect(emailCheck('student..name@senecapolytechnic.ca')).toBe(true);
+        expect(emailCheck('first..last@senecapolytechnic.ca')).toBe(false);
+        expect(emailCheck('student..name@senecapolytechnic.ca')).toBe(false);
     });
 
 });
