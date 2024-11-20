@@ -20,7 +20,9 @@ jobs:
 
           # Set environment variables
       - name: Set environment variables
-        run: echo "PORT=${{ secrets.PORT }}" >> $GITHUB_ENV
+        env:
+          PORT: ${{ secrets.PORT }}
+        # run: echo "PORT=${{ secrets.PORT }}" >> $GITHUB_ENV
 
           # install packages
       - run: npm install
