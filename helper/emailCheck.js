@@ -4,8 +4,8 @@
  * 2. The email should contain a dot(.)
  * 3. The email should either end with '@myseneca.ca' or '@senecapolytechnic.ca'
  * 4. if the email ends with '@senecapolytechnic.ca' then before the @ there shoul be a dot(.) in between the characters e.g xxx.xxx@senecapolytechnic.ca
- * 5. something like this should not pass xxx..xxx@senecapolytechnic.ca. It should only have one 
- *  
+ * 5. something like this should not pass xxx..xxx@senecapolytechnic.ca. It should only have one
+ *
  * @param {string} email - The email address to validate. Useful for testing
  * @returns {boolean} - Returns true if the email meets all the specified conditions, otherwise returns false.
  */
@@ -69,6 +69,5 @@ function emailCheck(email) {
 
     return false;
 }
-
 
 module.exports = emailCheck;
