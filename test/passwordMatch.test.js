@@ -50,6 +50,15 @@ describe("hashPassword function", () => {
     }).toThrow("Password must be between 8 and 20 characters");
   });
 
+  test("shpuld throw an error if password length of short than 8", () => {
+    const password = "hi";
+    const confirmPassword = "hi";
+
+    expect(() => {
+      hashPassword(password, confirmPassword);
+    }).toThrow("Password must be between 8 and 20 characters");
+  });
+
   /**
    * Test case to check if the function throws an error when passwords do not match in length.
    * @returns {void}
