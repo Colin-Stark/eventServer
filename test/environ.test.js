@@ -1,6 +1,5 @@
 
 let port = process.env.PORT;
-console.log(`port is ${port}`);
 
 describe('Check that the environmental variable can be read', () => {
 

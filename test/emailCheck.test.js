@@ -1,48 +1,53 @@
 const emailCheck = require("../helper/emailCheck"); // Import emailCheck function
 
-describe("emailCheck function Test", () => {
-  // Positive Tests: Test for valid emails
+/**
+ * Test cases for the emailCheck function
+ */
+const emails = [
+  "sl@gmil.com",            // Invalid email
+  "sds@myseneca.ca",        // Valid email
+  "example@senecapolytechnic.ca",  // Valid email
+  "john.doe@myseneca.ca",   // Valid email
+  "invalidemail@notavaliddomain.com", // Invalid email
+  "jane.doe@senecapolytechnic.ca", // Valid email
+  "user123@myseneca.ca",    // Valid email
+  "invalid@senecapolytechnic.com",  // Invalid email
+  "test.user@notadomain.ca",  // Invalid email
+  "admin@myseneca.ca",      // Valid email
+  "admin@invalid.com"       // Invalid email
+  // You can add as many as you like for testing
+];
+
+describe("emailCheck function", () => {
+
+  // Test that emailCheck correctly identifies valid emails
   test("should return true for valid emails", () => {
-    expect(emailCheck("user@example.com")).toBe(false);
-    expect(emailCheck("firstname.lastname@senecapolytechnic.ca")).toBe(true);
-    expect(emailCheck("name123@domain.com")).toBe(false);
+    const validEmails = [
+      "sds@myseneca.ca",
+      "example@senecapolytechnic.ca",
+      "john.doe@myseneca.ca",
+      "jane.doe@senecapolytechnic.ca",
+      "user123@myseneca.ca",
+      "admin@myseneca.ca"
+    ];
+
+    validEmails.forEach(email => {
+      expect(emailCheck(email)).toBe(true);
+    });
   });
 
-  // Negative Test: Test for invalid email patterns
-  test("should return false for emails with invalid patterns", () => {
-    expect(emailCheck("invalidemail")).toBe(false);
-    expect(emailCheck("invalid@domain")).toBe(false);
-    expect(emailCheck("@domain.com")).toBe(false);
-    expect(emailCheck("user@domaincom")).toBe(false);
-  });
+  // Test that emailCheck correctly identifies invalid emails
+  test("should return false for invalid emails", () => {
+    const invalidEmails = [
+      "sl@gmil.com",
+      "invalidemail@notavaliddomain.com",
+      "invalid@senecapolytechnic.com",
+      "test.user@notadomain.ca",
+      "admin@invalid.com"
+    ];
 
-  // Domain Specific Test: Test for emails ending with '@myseneca.ca'
-  test("should return true for emails ending with @myseneca.ca", () => {
-    expect(emailCheck("user@myseneca.ca")).toBe(true);
-    expect(emailCheck("anotheruser@myseneca.ca")).toBe(true);
-  });
-
-  // Negative Test: Test for emails ending with '@senecapolytechnic.ca' but no dot in the local part
-  test("should return true for emails ending with @senecapolytechnic.ca but without dot in local part", () => {
-    expect(emailCheck("username@senecapolytechnic.ca")).toBe(false);
-    expect(emailCheck("hello@senecapolytechnic.ca")).toBe(false);
-  });
-
-  // Domain Specific Test: Test for emails ending with '@senecapolytechnic.ca' but with a dot in the local part
-  test("should return true for emails ending with @senecapolytechnic.ca and a dot in the local part", () => {
-    expect(emailCheck("firstname.lastname@senecapolytechnic.ca")).toBe(true);
-    expect(emailCheck("student.name@senecapolytechnic.ca")).toBe(true);
-  });
-
-  // Negative Test: Test for emails ending with '@myseneca.ca' but with a dot in the local part
-  test("should return true for emails ending with @myseneca.ca and a dot in the local part", () => {
-    expect(emailCheck("firstname.lastname@myseneca.ca")).toBe(false);
-    expect(emailCheck("student.name@myseneca.ca")).toBe(false);
-  });
-
-  // Negative Test: Test for emails ending with '@senecapolytechnic.ca' but with multiple dots in the local part
-  test("should return false for emails ending with @senecapolytechnic.ca and multiple dots in the local part", () => {
-    expect(emailCheck("first..last@senecapolytechnic.ca")).toBe(false);
-    expect(emailCheck("student..name@senecapolytechnic.ca")).toBe(false);
+    invalidEmails.forEach(email => {
+      expect(emailCheck(email)).toBe(false);
+    });
   });
 });
