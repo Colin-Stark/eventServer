@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Colin-Stark/taskserver#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jest": "^29.7.0",
