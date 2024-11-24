@@ -13,6 +13,7 @@ describe('Check that the environmental variable can be read', () => {
 
     test('salt number is of type number', () => {
         // Test the data type of the saltrounds
+        console.log(process.env.SALTROUNDS);
         const saltRounds = parseInt(process.env.SALTROUNDS);
         expect(typeof saltRounds).toBe('number');
     });
