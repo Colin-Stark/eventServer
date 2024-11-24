@@ -13,7 +13,8 @@ jobs:
     name: Run npm on Ubuntu
     runs-on: ubuntu-latest
     env:
-      PORT: ${{ secrets.PORT }}  # Set environment variables for all steps in the job
+      PORT: ${{ secrets.PORT }}
+      SALTROUNDS: ${{ secrets.SALTROUNDS }}
 
     steps:
       - uses: actions/checkout@v4
