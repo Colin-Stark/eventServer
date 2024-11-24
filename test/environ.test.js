@@ -10,4 +10,11 @@ describe('Check that the environmental variable can be read', () => {
         expect(typeof port).toBe('string');
         expect(port).toBe('8000');
     });
+
+    test('salt number is of type number', () => {
+        // Test the data type of the saltrounds
+        const saltRounds = parseInt(process.env.SALTROUNDS);
+        expect(typeof saltRounds).toBe('number');
+    });
+
 });
