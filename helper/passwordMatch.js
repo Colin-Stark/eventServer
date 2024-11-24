@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 /**
  * Hash the password if both passwords match.
@@ -6,16 +6,24 @@ const bcrypt = require('bcryptjs');
  * @param {string} confirmPassword
  * @returns {string|Error} - Hashed password or error
  */
-function hashPassword(password, confirmPassword) {
-    if (password !== confirmPassword) {
-        throw new Error('Passwords do not match');
-    }
+async function hashPassword(password, confirmPassword) {
+  const result = await comparePasswords(password, confirmPassword);
+  if (!result) {
+    throw new Error("Passwords do not match");
+  }
 
-    if (password.length < 8 || password.length > 20) {
-        throw new Error('Password must be between 8 and 20 characters');
-    }
+  const regex = /^.{8,20}$/;
 
-    return bcrypt.hashSync(password, 12);  // Synchronous hash
+  if (!regex.test(password))
+    throw new Error("Password must be between 8 and 20 characters");
+
+  return bcrypt.hashSync(password, 12); // Synchronous hash
+}
+
+async function comparePasswords(password, confirmPassword) {
+  let hashedPassword = await bcrypt.hash(password, 10);
+
+  return bcrypt.compare(confirmPassword, hashedPassword);
 }
 
 module.exports = { hashPassword };
