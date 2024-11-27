@@ -51,6 +51,7 @@ describe("hashPassword function", () => {
     const password = "hi";
     const confirmPassword = "hi";
 
+    // Expect error to be thrown due to less characters
     await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must be between 8 and 20 characters");
   });
 
@@ -67,6 +68,18 @@ describe("hashPassword function", () => {
   });
 
   /**
+   * Test case to check if the function throws an error when password length is more than 20 characters.
+   * @returns {void}
+   */
+  test("should throw an error if password length is more than 20 characters", async () => {
+    const password = "ThisPasswordIsWayTooLong1@";
+    const confirmPassword = "ThisPasswordIsWayTooLong1@";
+
+    // Expect error to be thrown due to password exceeding length of 20 characters
+    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must be between 8 and 20 characters");
+  });
+
+  /**
    * Test case to check if the function throws an error when password doesn't contain uppercase letter.
    * @returns {void}
    */
@@ -74,7 +87,8 @@ describe("hashPassword function", () => {
     const password = "lowercase1@";
     const confirmPassword = "lowercase1@";
 
-    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character");
+    // Expect error to be thrown due to uppercase letter missing
+    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must include at least one uppercase letter");
   });
 
   /**
@@ -85,7 +99,8 @@ describe("hashPassword function", () => {
     const password = "UPPERCASE1@";
     const confirmPassword = "UPPERCASE1@";
 
-    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character");
+    // Expect error to be thrown due to lowercase letter missing
+    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must include at least one lowercase letter");
   });
 
   /**
@@ -96,7 +111,8 @@ describe("hashPassword function", () => {
     const password = "NoDigit@";
     const confirmPassword = "NoDigit@";
 
-    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character");
+    // Expect error to be thrown due to digit missing
+    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must include at least one digit");
   });
 
   /**
@@ -107,6 +123,7 @@ describe("hashPassword function", () => {
     const password = "NoSpecial1";
     const confirmPassword = "NoSpecial1";
 
-    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character");
+    // Expect error to be thrown due to special character letter missing
+    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must include at least one special character");
   });
 });
