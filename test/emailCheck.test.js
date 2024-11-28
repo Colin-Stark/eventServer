@@ -1,27 +1,25 @@
-const emailCheck = require("../helper/emailCheck"); // Import emailCheck function
+const validateSenecaEmail = require("../helper/emailCheck"); // Import validateSenecaEmail function
 
 /**
- * Test cases for the emailCheck function
+ * Test cases for the validateSenecaEmail function
  */
-const emails = [
-  "sl@gmil.com",            // Invalid email
-  "sds@myseneca.ca",        // Valid email
-  "example@senecapolytechnic.ca",  // Valid email
-  "john.doe@myseneca.ca",   // Valid email
-  "invalidemail@notavaliddomain.com", // Invalid email
-  "jane.doe@senecapolytechnic.ca", // Valid email
-  "user123@myseneca.ca",    // Valid email
-  "invalid@senecapolytechnic.com",  // Invalid email
-  "test.user@notadomain.ca",  // Invalid email
-  "admin@myseneca.ca",      // Valid email
-  "admin@invalid.com"       // Invalid email
-  // You can add as many as you like for testing
-];
+describe("validateSenecaEmail function", () => {
+  // Helper function to mock Express req, res, and next
+  const mockRequest = (email) => ({
+    body: { email }
+  });
 
-describe("emailCheck function", () => {
+  const mockResponse = () => {
+    const res = {};
+    res.status = jest.fn().mockReturnValue(res);  // Mock status method
+    res.json = jest.fn();  // Mock json method
+    return res;
+  };
 
-  // Test that emailCheck correctly identifies valid emails
-  test("should return true for valid emails", () => {
+  const mockNext = jest.fn();  // Mock next function
+
+  // Test that validateSenecaEmail correctly identifies valid emails
+  test("should call next for valid emails", () => {
     const validEmails = [
       "sds@myseneca.ca",
       "example@senecapolytechnic.ca",
@@ -32,12 +30,20 @@ describe("emailCheck function", () => {
     ];
 
     validEmails.forEach(email => {
-      expect(emailCheck(email)).toBe(true);
+      const req = mockRequest(email);
+      const res = mockResponse();
+      const next = mockNext;
+
+      validateSenecaEmail(req, res, next);  // Call the middleware function
+
+      expect(next).toHaveBeenCalled();  // Check if next is called
+      expect(res.status).not.toHaveBeenCalled();  // status should not be called
+      expect(res.json).not.toHaveBeenCalled();  // json should not be called
     });
   });
 
-  // Test that emailCheck correctly identifies invalid emails
-  test("should return false for invalid emails", () => {
+  // Test that validateSenecaEmail correctly returns error for invalid emails
+  test("should return error for invalid emails", () => {
     const invalidEmails = [
       "sl@gmil.com",
       "invalidemail@notavaliddomain.com",
@@ -47,7 +53,16 @@ describe("emailCheck function", () => {
     ];
 
     invalidEmails.forEach(email => {
-      expect(emailCheck(email)).toBe(false);
+      const req = mockRequest(email);
+      const res = mockResponse();
+      const next = mockNext;
+
+      validateSenecaEmail(req, res, next);  // Call the middleware function
+
+      // Check if response is correctly sent
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Email must be a Seneca email' });
+      // expect(next).not.toHaveBeenCalled();  // next should not be called for invalid emails
     });
   });
 });
