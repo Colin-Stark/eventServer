@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 const connectDB = async () => {
     try {
-        console.log(process.env.mongo_uri);
+        console.log(process.env.MONGO_URI);
         // await mongoose.connect(process.env.mongo_uri);
         console.log('Connected to MongoDB');
     } catch (error) {
@@ -40,13 +40,13 @@ const connectDB = async () => {
     }
 };
 
-// const startServer = async () => {
-//     await connectDB();
-// const PORT = process.env.port;
-// app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-// });
-// };
+const startServer = async () => {
+    await connectDB();
+    // const PORT = process.env.port;
+    // app.listen(PORT, () => {
+    //     console.log(`Server running on port ${PORT}`);
+    // });
+};
 
 connectDB();
 
