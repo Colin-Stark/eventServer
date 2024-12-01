@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 const connectDB = async () => {
     try {
-        console.log(`Connecting to MongoDB: ${process.env.mongo_uri}`);
+        console.log(`Connecting to MongoDB: ${process.env.mongo_uri} with a port of ${process.env.port}`);
         await mongoose.connect(process.env.mongo_uri);
         console.log('Connected to MongoDB');
     } catch (error) {
