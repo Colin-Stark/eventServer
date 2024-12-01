@@ -11,28 +11,55 @@ const hashPassword = async (password, confirmPassword) => {
     throw new Error('Passwords do not match');
   }
 
-  // Validate password length
-  const passwordLengthRegex = /^.{8,20}$/;
-  if (!passwordLengthRegex.test(password)) {
-    throw new Error('Password must be between 8 and 20 characters');
+  const specialCharacters = "!@#$%^&*";  // Define special characters
+  let hasUpperCase = false;
+  let hasLowerCase = false;
+  let hasNumber = false;
+  let hasSpecialChar = false;
+
+  for (let i = 0; i < password.length; i++) {
+    const char = password.charAt(i);
+
+    if (char >= 'A' && char <= 'Z') {
+      hasUpperCase = true;
+    } else if (char >= 'a' && char <= 'z') {
+      hasLowerCase = true;
+    } else if (char >= '0' && char <= '9') {
+      hasNumber = true;
+    } else if (specialCharacters.includes(char)) {
+      hasSpecialChar = true;
+    }
+
+    if (hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && password.length >= 8 && password.length <= 20) {
+      break;
+    }
   }
 
-  // Validate password complexity with individual checks
-  if (!/[a-z]/.test(password)) {
-    throw new Error('Password must include at least one lowercase letter');
+  if (password.length < 8) {
+    throw new Error('Password must be at least 8 characters long');
   }
 
-  if (!/[A-Z]/.test(password)) {
+  if (password.length > 20) {
+    throw new Error('Password must be at most 20 characters long');
+  }
+
+  if (!hasUpperCase) {
     throw new Error('Password must include at least one uppercase letter');
   }
 
-  if (!/\d/.test(password)) {
+  if (!hasLowerCase) {
+    throw new Error('Password must include at least one lowercase letter');
+  }
+
+  if (!hasNumber) {
     throw new Error('Password must include at least one digit');
   }
 
-  if (!/[!@#$%^&*()\-_=+{};:,<.>]/.test(password)) {
+  if (!hasSpecialChar) {
     throw new Error('Password must include at least one special character');
   }
+
+
 
   const newPassword = await bcrypt.hash(password, parseInt(process.env.SALTROUNDS));
 

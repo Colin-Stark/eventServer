@@ -44,7 +44,7 @@ describe("hashPassword function", () => {
     const confirmPassword = "";
 
     // Expect error to be thrown due to password mismatch (both are empty)
-    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must be between 8 and 20 characters");
+    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must be at least 8 characters long");
   });
 
   test("should throw an error if password length of short than 8", async () => {
@@ -52,7 +52,7 @@ describe("hashPassword function", () => {
     const confirmPassword = "hi";
 
     // Expect error to be thrown due to less characters
-    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must be between 8 and 20 characters");
+    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must be at least 8 characters long");
   });
 
   /**
@@ -76,7 +76,7 @@ describe("hashPassword function", () => {
     const confirmPassword = "ThisPasswordIsWayTooLong1@";
 
     // Expect error to be thrown due to password exceeding length of 20 characters
-    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must be between 8 and 20 characters");
+    await expect(hashPassword(password, confirmPassword)).rejects.toThrow("Password must be at most 20 characters long");
   });
 
   /**
