@@ -28,11 +28,6 @@ app.get('/', (req, res) => {
     res.send('Welcome to the SEENECTASK API');
 });
 
-/**
- * Favicon Route
- */
-app.get('/favicon.ico', (req, res) => res.status(204)); // Empty response for favicon
-
 
 
 const connectDB = async () => {
