@@ -40,4 +40,4 @@ const connectDB = async () => {
 connectDB();
 
 
-module.exports = { app, startServer, connectDB };
+module.exports = { app, connectDB };
