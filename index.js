@@ -21,6 +21,13 @@ app.use(express.urlencoded({ extended: true }));
  */
 app.use("/signup", signUp);
 
+/**
+ * Default Route
+ */
+app.get('/', (req, res) => {
+    res.send('Welcome to the SEENECTASK API');
+});
+
 
 const connectDB = async () => {
     try {
@@ -34,11 +41,13 @@ const connectDB = async () => {
 
 const startServer = async () => {
     await connectDB();
-    const PORT = process.env.port;
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
+    // const PORT = process.env.port;
+    // app.listen(PORT, () => {
+    //     console.log(`Server running on port ${PORT}`);
+    // });
 };
+
+connectDB();
 
 
 module.exports = { app, startServer };
