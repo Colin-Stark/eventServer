@@ -1,5 +1,6 @@
 const validateSenecaEmail = require("../helper/emailCheck"); // Import validateSenecaEmail function
 
+
 /**
  * Test cases for the validateSenecaEmail function
  */

@@ -32,22 +32,12 @@ app.get('/', (req, res) => {
 const connectDB = async () => {
     try {
         await mongoose.connect(process.env.mongo_uri);
-        console.log('Connected to MongoDB');
     } catch (error) {
-        console.error('MongoDB Connection Error:', error);
-        process.exit(1);
+        throw new Error('MongoDB connection failed');
     }
-};
-
-const startServer = async () => {
-    await connectDB();
-    // const PORT = process.env.port;
-    // app.listen(PORT, () => {
-    //     console.log(`Server running on port ${PORT}`);
-    // });
 };
 
 connectDB();
 
 
-module.exports = { app, startServer };
+module.exports = { app, startServer, connectDB };
