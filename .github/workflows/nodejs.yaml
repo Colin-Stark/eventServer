@@ -15,6 +15,7 @@ jobs:
     env:
       PORT: ${{ secrets.PORT }}
       SALTROUNDS: ${{ secrets.SALTROUNDS }}
+      mongo_uri: ${{ secrets.MONGO_URI }}
 
     steps:
       - uses: actions/checkout@v4
