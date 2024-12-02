@@ -12,6 +12,15 @@ const signUp = require('./routes/signUp');
 /**
  * MiddleWares 
 */
+
+app.use((req, res, next) => {
+    if (req.originalUrl && req.originalUrl.split("/").pop() === 'favicon.ico') {
+        return res.sendStatus(204);
+    }
+    return next();
+});
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
