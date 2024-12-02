@@ -14,11 +14,14 @@ const signUp = require('./routes/signUp');
 */
 
 app.use((req, res, next) => {
-    if (req.originalUrl && req.originalUrl.split("/").pop() === 'favicon.ico') {
+    const urlParts = req.originalUrl.split("/");
+    const lastPart = urlParts.pop();
+    if (lastPart === 'favicon.ico' || lastPart === 'favicon.png') {
         return res.sendStatus(204);
     }
     return next();
 });
+
 
 
 app.use(express.json());
